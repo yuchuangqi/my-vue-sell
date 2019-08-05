@@ -1,7 +1,9 @@
 <template>
     <div class="header">
+        <!-- 布局：先上下，再左右 -->
         <div class="content-wrapper">
             <div class="avatar">
+                <!-- 这里不用加单位，一定用v-bind -->
                 <img width="64" height="64" :src="seller.avatar">
             </div>
             <div class="content">
@@ -12,20 +14,34 @@
                 <div class="description">
                     {{seller.description}}{{seller.deliveryTime}}分钟送达
                 </div>
+                <!-- 这个层有可能没有，如果不加v-if会报错，因为异步加载数据 -->
                 <div v-if="seller.supports" class="support">
+                    <!-- 不同class对应不同的图标 -->
                     <span class="icon" :class="classMap[seller.supports[0].type]"></span>
                     <span class="text">{{seller.supports[0].description}}</span>
                 </div>
             </div>
-            <div v-if="seller.supports" class="support-count">
+            <div v-if="seller.supports" class="support-count" @click="showDetail">
                 <span class="count">{{seller.supports.length}}个</span>
                 <i class="icon-keyboard_arrow_right"></i>
             </div>
         </div>
-        <div class="bulletin-wrapper">
-            <span class="bulletin-title"></span>
-            <span class="bulletin-text"></span>
+        <div class="bulletin-wrapper" @click="showDetail">
+            <span class="bulletin-title"></span><span class="bulletin-text">{{seller.bulletin}}</span>
             <i class="icon-keyboard_arrow_right"></i>
+        </div>
+        <div class="background">
+            <img :src="seller.avatar" width="100%" height="100%"> 
+        </div>
+        <div v-show="detailShow" class="detail" >
+            <div class="detail-wrapper clearfix">
+                <div class="detail-main">
+                    <h1 class="name">{{seller.name}}</h1>
+                </div>
+            </div>
+            <div class="detail-close">
+                <i class="icon-close"></i>
+            </div>
         </div>
     </div>
 </template>
@@ -36,7 +52,18 @@ export default {
             type:Object
         }
     },
+    data(){
+        return {
+            detailShow:false
+        }
+    },
+    methods:{
+        showDetail(){
+            this.detailShow = true;
+        }
+    },
     created(){
+        // 将0，1，2，3，4对应到'decrease','discount','special','invoice','guarantee'
         this.classMap = ['decrease','discount','special','invoice','guarantee'];
     }
 }
@@ -44,8 +71,10 @@ export default {
 <style lang='stylus' rel="stylesheet/stylus">
 @import '../../common/stylus/mixin'
     .header
+        position relative
         color:#fff
-        background-color:#999;
+        background:rgba(7,17,27,0.3);
+        overflow hidden
         .content-wrapper
             position:relative
             padding:24px 12px 18px 24px;
@@ -110,6 +139,7 @@ export default {
                 background:rgba(0,0,0,0.2)
                 text-align:center
                 .count
+                    // 字体和文字对齐
                     vertical-align:top
                     font-size:10px;
                 .icon-keyboard_arrow_right
@@ -117,9 +147,66 @@ export default {
                     line-height:24px;
                     font-size:10px;
         .bulletin-wrapper
+            position:relative
+            background:rgba(7,17,27,0.2)
             height:28px;
             line-height:28px;
-            
-
+            padding:0 22px 0 12px;
+            white-space nowrap
+            overflow:hidden;
+            text-overflow:ellipsis;
+            .bulletin-title
+                display inline-block
+                width 22px
+                height 12px
+                bg-image('bulletin')    
+                background-size 22px 12px
+                background-repeat:no-repeat
+                vertical-align top
+                margin-top 8px;
+            .bulletin-text
+                margin:0 4px;
+                font-size:10px;
+                vertical-align top
+            .icon-keyboard_arrow_right
+                position:absolute
+                font-size:10px;
+                right 12px
+                top:8px
+        .background
+            position:absolute
+            top:0
+            left:0
+            width 100%
+            height:100%;
+            z-index:-1;
+            filter:blur(10px)
+        .detail
+            position:fixed
+            top:0;
+            left:0;
+            z-index:100;
+            width:100%;
+            height:100%;
+            overflow:auto
+            background:rgba(7,17,27,0.8)
+            .detail-wrapper
+                min-height:100%;
+                width:100%;
+                .detail-main
+                    margin-top:64px;
+                    padding-bottom:64px;
+                    .name
+                        line-height:16px;
+                        text-align:center;
+                        font-size:16px;
+                        font-weight:700;
+            .detail-close
+                position:relative
+                width 32px;
+                height:32px;
+                margin:-64px auto;
+                clear:both
+                font-size:32px;
 </style>
 

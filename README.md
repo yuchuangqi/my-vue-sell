@@ -21,4 +21,9 @@ flex:1的作用,&表示他的父元素
 全局定义，在base.styl: .border-1px
 
  v-if="seller.supports" 异步加载，最初为空，要先做判断。
- 外部组件4,好好看下
+ 
+图片与文字之间会有空白：消除空白，设置父元素，font-size:0;但子元素要单独设置font-size;
+图片与文字在同一行没有对齐：图片加样式：vertical-align:top;
+
+sticky footers: www.w3cplus.com/css3/
+星星的分级：
