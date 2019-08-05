@@ -3,6 +3,12 @@
 我们会在src下创建一个公共目录common,用于存放公共资源和公共模块。将图标字体放在这个目录下。将图标字体文件里的css文件改为stylus语法。
 项目的data.json文件：包括商家相关数据：seller，产品信息：goods，商家评论：ratings
 测试写的api:localhost:8080/api/seller,
+路径设置问题:webpack.base.conf.js下面：
+ alias: {
+      'src': path.resolve(__dirname, '../src'),
+      // 'assets': path.resolve(__dirname, '../src/assets'),
+      'components': path.resolve(__dirname, '../src/components')
+    }
 谷歌安装jsonview
 flex:1的作用
 &表示他的父元素
