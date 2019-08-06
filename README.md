@@ -27,3 +27,9 @@ flex:1的作用,&表示他的父元素
 
 sticky footers: www.w3cplus.com/css3/
 星星的分级：
+
+因为是异步更新数据：用this.$nextTick(() => {
+                    this._initScroll()
+                })
+
+vscode设置模板：快速设置用户代码片段：文件->首选项->用户代码片段  

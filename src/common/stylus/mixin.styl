@@ -8,6 +8,9 @@ border-1px($color)
         width: 100%
         border-top:1px solid $color
         content:''
+border-none()
+    &:after
+        display: none
 // 处理2x和3x的图片   bg-image('decrease_1')
 bg-image($url)
     background-image:url($url + "@2x.png")
