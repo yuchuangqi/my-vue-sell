@@ -49,3 +49,6 @@ export default 引入的话不带花括号，export function,可以export多个�
 build.js下面有env.NODE_ENV = 'production'
 
 项目问题，第一次加载画面时，不能滚动；商品详情页时，点击不同商品会有上次商品的图片切换。
+
+课程总结：
+关于better-scroll的文章：http://www.imooc.com/article/18232
