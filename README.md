@@ -1,4 +1,4 @@
-# vue-cli-cube
+# vue-sell-cube
 
 ## Project setup
 ```
