@@ -15,25 +15,33 @@
       </div>
     </div>
     <!-- 路由外链，改变路由刷新-->
-    <router-view :seller="seller"></router-view>
+    <router-view :seller="seller" keep-alive></router-view>
   </div>
 </template>
 <script>
 import header from 'components/header/header.vue';
+import {urlParse} from 'common/js/util';
+
 const ERR_OK = 0;
 export default {
   data() {
     return {
-      seller: {}
+      seller: {
+        id:(() => {
+          let queryParam = urlParse()
+          console.log(queryParam)
+          return queryParam.id
+        })()
+      }
     };
   },
   created () {
-    this.$http.get('/api/seller').then(res => {
+    this.$http.get('/api/seller?id='+ this.seller.id).then(res => {
       res = res.body;
       console.log(res);
       if (res.errno === ERR_OK) {
-        this.seller = res.data;
-        console.log(this.seller);
+        this.seller = Object.assign({},this.seller,res.data)
+        console.log(this.seller.id)
       }
     });
   },

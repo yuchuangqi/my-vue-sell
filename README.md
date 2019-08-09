@@ -33,3 +33,19 @@ sticky footers: www.w3cplus.com/css3/
                 })
 
 vscode设置模板：快速设置用户代码片段：文件->首选项->用户代码片段  
+
+可以被外部调用的，一般不带下换线；如果不行的话，不带下滑线；
+
+ select(type,event){
+      if(!event._constructed){
+        return
+      }
+      this.selectType = type
+    }
+这里讲传进来的selectType改变，只能通过派发事件改变父组件的值。
+
+export default 引入的话不带花括号，export function,可以export多个模块，引入的话要带花括号。
+
+build.js下面有env.NODE_ENV = 'production'
+
+项目问题，第一次加载画面时，不能滚动；商品详情页时，点击不同商品会有上次商品的图片切换。
